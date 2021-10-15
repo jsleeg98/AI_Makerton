@@ -208,6 +208,8 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                         line = (names[int(cls)], conf, *xyxy) if save_conf else (cls, *xywh)  # label format
                         with open(txt_path + '.txt', 'a') as f:
                             #f.write(('%g ' * len(line)).rstrip() % line + '\n')
+                            # 결과 형식으로 제출하기 위해서 변경
+                            # 클래스명, conf, x1, y1, x2, y2 출력
                             f.write(('%s %g %g %g %g %g ').rstrip() % line + '\n')
 
                     if save_img or save_crop or view_img:  # Add bbox to image
@@ -257,16 +259,16 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
 
 def parse_opt():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', nargs='+', type=str, default=ROOT / 'yolov5s.pt', help='model path(s)')
+    parser.add_argument('--weights', nargs='+', type=str, default = yolov5x_best.pt, help='model path(s)') # default로 학습된 최고의 결과 가중치로 설정
     parser.add_argument('--source', type=str, default=ROOT / 'data/images', help='file/dir/URL/glob, 0 for webcam')
-    parser.add_argument('--imgsz', '--img', '--img-size', nargs='+', type=int, default=[640], help='inference size h,w')
+    parser.add_argument('--imgsz', '--img', '--img-size', nargs='+', type=int, default=416, help='inference size h,w') # default로 이미지 크기 416으로 설정
     parser.add_argument('--conf-thres', type=float, default=0.25, help='confidence threshold')
     parser.add_argument('--iou-thres', type=float, default=0.45, help='NMS IoU threshold')
     parser.add_argument('--max-det', type=int, default=1000, help='maximum detections per image')
     parser.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
     parser.add_argument('--view-img', action='store_true', help='show results')
-    parser.add_argument('--save-txt', default = True, action='store_true', help='save results to *.txt')
-    parser.add_argument('--save-conf', default = True, action='store_true', help='save confidences in --save-txt labels')
+    parser.add_argument('--save-txt', default = True, action='store_true', help='save results to *.txt') # 항상 txt로 결과가 나오도록 설정
+    parser.add_argument('--save-conf', default = True, action='store_true', help='save confidences in --save-txt labels') # 항상 conf 값이 결과에 함께 나오도록 설정
     parser.add_argument('--save-crop', action='store_true', help='save cropped prediction boxes')
     parser.add_argument('--nosave', action='store_true', help='do not save images/videos')
     parser.add_argument('--classes', nargs='+', type=int, help='filter by class: --classes 0, or --classes 0 2 3')
@@ -275,7 +277,7 @@ def parse_opt():
     parser.add_argument('--visualize', action='store_true', help='visualize features')
     parser.add_argument('--update', action='store_true', help='update all models')
     parser.add_argument('--project', default=ROOT / 'runs/detect', help='save results to project/name')
-    parser.add_argument('--name', default='exp', help='save results to project/name')
+    parser.add_argument('--name', default='result', help='save results to project/name') # result 폴더가 생성되어 결과 저장
     parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
     parser.add_argument('--line-thickness', default=3, type=int, help='bounding box thickness (pixels)')
     parser.add_argument('--hide-labels', default=False, action='store_true', help='hide labels')
