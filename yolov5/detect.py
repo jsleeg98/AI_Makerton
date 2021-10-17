@@ -259,7 +259,7 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
 
 def parse_opt():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', nargs='+', type=str, default = yolov5x_best.pt, help='model path(s)') # default로 학습된 최고의 결과 가중치로 설정
+    parser.add_argument('--weights', nargs='+', type=str, help='model path(s)') # default로 학습된 최고의 결과 가중치로 설정
     parser.add_argument('--source', type=str, default=ROOT / 'data/images', help='file/dir/URL/glob, 0 for webcam')
     parser.add_argument('--imgsz', '--img', '--img-size', nargs='+', type=int, default=416, help='inference size h,w') # default로 이미지 크기 416으로 설정
     parser.add_argument('--conf-thres', type=float, default=0.25, help='confidence threshold')
