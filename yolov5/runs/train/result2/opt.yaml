@@ -1,4 +1,4 @@
-weights: yolov5x6.pt
+weights: ./runs/train/result2/weights/last.pt
 cfg: ''
 data: /home/twopiece/datasets_rw/final-dataset/data.yaml
 hyp: data/hyps/hyp.scratch.yaml
@@ -6,7 +6,7 @@ epochs: 100
 batch_size: 16
 imgsz: 416
 rect: false
-resume: false
+resume: true
 nosave: false
 noval: false
 noautoanchor: false
